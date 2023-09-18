@@ -27,7 +27,7 @@ pipeline {
         }
         stage ('Config Maven'){
             steps {
-               mvn dependency:purge-local-repository
+               sh 'mvn dependency:purge-local-repository'
                jf 'mvnc --repo-resolve-releases=acme-maven-virtual --repo-resolve-snapshots=acme-maven-virtual --repo-deploy-releases=acme-maven-virtual --repo-deploy-snapshots=acme-maven-virtual'
             }
         }
