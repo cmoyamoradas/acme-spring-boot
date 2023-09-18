@@ -27,20 +27,17 @@ pipeline {
         }
         stage ('Config Maven'){
             steps {
-               sh 'mvn dependency:purge-local-repository'
                jf 'mvnc --repo-resolve-releases=acme-maven-virtual --repo-resolve-snapshots=acme-maven-virtual --repo-deploy-releases=acme-maven-virtual --repo-deploy-snapshots=acme-maven-virtual'
             }
         }
         stage('Compile') {
             steps {
                 echo 'Compiling'
-                sh 'mvn dependency:purge-local-repository'
                 jf 'mvn clean test-compile -Dcheckstyle.skip -DskipTests'
             }
         }
         stage ('Upload artifact') {
             steps {
-                 sh 'mvn dependency:purge-local-repository'
                  jf 'mvn clean deploy -Dcheckstyle.skip -DskipTests --build-name=${BUILD_NAME} --build-number=${BUILD_ID}'
             }
         }
