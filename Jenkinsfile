@@ -34,11 +34,13 @@ pipeline {
         stage('Compile') {
             steps {
                 echo 'Compiling'
+                sh 'mvn dependency:purge-local-repository'
                 jf 'mvn clean test-compile -Dcheckstyle.skip -DskipTests'
             }
         }
         stage ('Upload artifact') {
             steps {
+                 sh 'mvn dependency:purge-local-repository'
                  jf 'mvn clean deploy -Dcheckstyle.skip -DskipTests --build-name=${BUILD_NAME} --build-number=${BUILD_ID}'
             }
         }
