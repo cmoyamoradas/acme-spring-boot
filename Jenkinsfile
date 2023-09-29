@@ -50,7 +50,7 @@ pipeline {
                 //Publish build info
                 jf 'rt bp ${BUILD_NAME} ${BUILD_ID} --build-url=${BUILD_URL}'
                 //Promote the build
-                jf 'rt bpr --status=Development --props="status=Development" ${BUILD_NAME} ${BUILD_ID} ${ARTIFACTORY_LOCAL_DEV_REPO}'
+                jf 'rt bpr --status=Development ${BUILD_NAME} ${BUILD_ID} ${ARTIFACTORY_LOCAL_DEV_REPO}'
             }
         }
     }
