@@ -1,11 +1,11 @@
 pipeline {
     agent any
     environment {
-        JURL = 'http://artifactory.artifactory:8082'
-        RT_URL = 'http://artifactory.artifactory:8082/artifactory'
-        TOKEN = credentials('artifactory-token')
-        ARTIFACTORY_LOCAL_DEV_REPO = 'acme-maven-dev-local'
-        SERVER_ID = 'local'
+        JURL = 'https://soleng.jfrog.io'
+        RT_URL = 'https://soleng.jfrog.io/artifactory'
+        TOKEN = credentials('soleng-io-token')
+        ARTIFACTORY_LOCAL_DEV_REPO = 'carlosmm-maven-dev-local'
+        SERVER_ID = 'soleng'
         BUILD_NAME = 'Acme-Spring-Boot-Application'
     }
     tools {
