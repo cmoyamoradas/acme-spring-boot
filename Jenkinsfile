@@ -5,6 +5,7 @@ pipeline {
         RT_URL = 'https://soleng.jfrog.io/artifactory'
         TOKEN = credentials('soleng-io-token')
         ARTIFACTORY_LOCAL_DEV_REPO = 'carlosmm-maven-dev-local'
+        ARTIFACTORY_VIRTUAL_REPO = 'carlosmm-maven-virtual'
         SERVER_ID = 'soleng'
         BUILD_NAME = 'Acme-Spring-Boot-Application'
     }
@@ -27,7 +28,7 @@ pipeline {
         }
         stage ('Config Maven'){
             steps {
-               jf 'mvnc --repo-resolve-releases=acme-maven-virtual --repo-resolve-snapshots=acme-maven-virtual --repo-deploy-releases=acme-maven-virtual --repo-deploy-snapshots=acme-maven-virtual'
+               jf 'mvnc --repo-resolve-releases=${ARTIFACTORY_VIRTUAL_REPO} --repo-resolve-snapshots=${ARTIFACTORY_VIRTUAL_REPO} --repo-deploy-releases=${ARTIFACTORY_VIRTUAL_REPO} --repo-deploy-snapshots=${ARTIFACTORY_VIRTUAL_REPO}'
             }
         }
         stage('Compile') {
