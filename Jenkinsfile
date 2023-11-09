@@ -3,7 +3,7 @@ pipeline {
     environment {
         JURL = 'http://artifactory.artifactory:8082'
         RT_URL = 'http://artifactory.artifactory:8082/artifactory'
-        TOKEN = credentials('7ae3e03b-c72b-4a71-9f92-26069898d209')
+        TOKEN = credentials('artifactory-token')
         ARTIFACTORY_LOCAL_DEV_REPO = 'acme-maven-dev-local'
         SERVER_ID = 'local'
         BUILD_NAME = 'Acme-Spring-Boot-Application'
