@@ -54,5 +54,8 @@ pipeline {
                 jf 'rt bpr --status=Development ${BUILD_NAME} ${BUILD_ID} ${ARTIFACTORY_LOCAL_DEV_REPO}'
             }
         }
+        stage ('Scan the build info') {
+            jf 'bs ${BUILD_NAME} ${BUILD_ID}'
+        }
     }
 }
