@@ -4,7 +4,7 @@ pipeline {
         JURL = 'http://artifactory.artifactory:8082'
         RT_URL = 'http://artifactory.artifactory:8082/artifactory'
         TOKEN = credentials('main.jfrog.local')
-        ARTIFACTORY_LOCAL_DEV_REPO = 'acme-dev-local'
+        ARTIFACTORY_LOCAL_DEV_REPO = 'acme-maven-dev-local'
         ARTIFACTORY_VIRTUAL_REPO = 'acme-maven-virtual'
         SERVER_ID = 'local'
         BUILD_NAME = 'Acme-Spring-Boot-Application'
