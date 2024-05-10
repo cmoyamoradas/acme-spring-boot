@@ -55,7 +55,8 @@ pipeline {
             }
         }
         stage ('Scan the build info') {
-            jf 'bs ${BUILD_NAME} ${BUILD_ID}'
-        }
+            steps {
+                jf 'bs ${BUILD_NAME} ${BUILD_ID}'
+            }
     }
 }
