@@ -50,13 +50,17 @@ pipeline {
                 jf 'rt bag ${BUILD_NAME} ${BUILD_ID}'
                 //Publish build info
                 jf 'rt bp ${BUILD_NAME} ${BUILD_ID} --build-url=${BUILD_URL}'
-                //Promote the build
-                jf 'rt bpr --status=Development ${BUILD_NAME} ${BUILD_ID} ${ARTIFACTORY_LOCAL_DEV_REPO}'
             }
         }
         stage ('Scan the build info') {
             steps {
                 jf 'bs ${BUILD_NAME} ${BUILD_ID} --fail=${FAIL_BUILD} --vuln=${RETURN_ALL_VULNERABILITIES}'
+            }
+        }
+        stage ('Promote build info'){
+            steps{
+                //Promote the build
+                jf 'rt bpr --status=Development ${BUILD_NAME} ${BUILD_ID} ${ARTIFACTORY_LOCAL_DEV_REPO}'
             }
         }
     }
