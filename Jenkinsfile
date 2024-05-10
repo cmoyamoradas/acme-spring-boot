@@ -56,7 +56,7 @@ pipeline {
         }
         stage ('Scan the build info') {
             steps {
-                jf 'bs ${BUILD_NAME} ${BUILD_ID} --fail=${FAIL_BUILD} --vuln=${RETURN__ALL_VULNERABILITIES}'
+                jf 'bs ${BUILD_NAME} ${BUILD_ID} --fail=${FAIL_BUILD} --vuln=${RETURN_ALL_VULNERABILITIES}'
             }
         }
     }
