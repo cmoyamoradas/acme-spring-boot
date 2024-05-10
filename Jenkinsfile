@@ -58,5 +58,6 @@ pipeline {
             steps {
                 jf 'bs ${BUILD_NAME} ${BUILD_ID}'
             }
+        }
     }
 }
