@@ -10,8 +10,8 @@ pipeline {
         BUILD_NAME = 'Acme-Spring-Boot-Application'
     }
     tools {
-        maven "maven-3.6.3"
-        jfrog "jfrog-cli"
+        maven "maven-3.9.6"
+        jfrog "jfrog-cli-2.56.0"
     }
 
     stages {
