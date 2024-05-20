@@ -31,10 +31,26 @@ pipeline {
                jf 'mvnc --repo-resolve-releases=${ARTIFACTORY_VIRTUAL_REPO} --repo-resolve-snapshots=${ARTIFACTORY_VIRTUAL_REPO} --repo-deploy-releases=${ARTIFACTORY_VIRTUAL_REPO} --repo-deploy-snapshots=${ARTIFACTORY_VIRTUAL_REPO}'
             }
         }
-        stage('Compile') {
+        stage ('Scan the project') {
+            when {
+                expression { TYPE_OF_SCAN == 'Audit'}
+            }
             steps {
-                echo 'Compiling'
-                jf 'mvn clean test-compile -Dcheckstyle.skip -DskipTests'
+                jf 'audit --mvn --watches ${WATCHES}'
+            }
+        }
+        stage('Package') {
+            steps {
+                echo 'Packaging'
+                jf 'mvn clean package -Dcheckstyle.skip -DskipTests'
+            }
+        }
+        stage ('Scan the jar') {
+            when {
+                expression { TYPE_OF_SCAN == 'On-demand'}
+            }
+            steps {
+                jf 's --mvn --watches ${WATCHES}'
             }
         }
         stage ('Upload artifact') {
@@ -53,6 +69,9 @@ pipeline {
             }
         }
         stage ('Scan the build info') {
+            when {
+                expression { TYPE_OF_SCAN == 'Build'}
+            }
             steps {
                 jf 'bs ${BUILD_NAME} ${BUILD_ID} --fail=${FAIL_BUILD} --vuln=${RETURN_ALL_VULNERABILITIES}'
             }
