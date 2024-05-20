@@ -11,7 +11,7 @@ pipeline {
     }
     tools {
         maven "maven-3.9.6"
-        jfrog "jfrog-cli-2.56.0"
+        jfrog "jfrog-cli-2.56.1"
     }
 
     stages {
