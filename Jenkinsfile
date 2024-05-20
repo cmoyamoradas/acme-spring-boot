@@ -36,7 +36,13 @@ pipeline {
                 expression { TYPE_OF_SCAN == 'Audit'}
             }
             steps {
-                jf 'audit --mvn --watches ${WATCHES}'
+                script {
+                    if (params.WATCHES!=null && params.WATCHES!=''){
+                        jf 'audit --mvn --watches ${WATCHES}'
+                    } else {
+                        jf 'audit --mvn'
+                    }
+                }
             }
         }
         stage('Package') {
