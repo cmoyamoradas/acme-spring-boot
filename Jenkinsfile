@@ -56,7 +56,13 @@ pipeline {
                 expression { TYPE_OF_SCAN == 'On-demand'}
             }
             steps {
-                jf 's --mvn --watches ${WATCHES}'
+                script {
+                    if (params.WATCHES!=null && params.WATCHES!=''){
+                        jf 's "target/" --watches ${WATCHES}'
+                    } else {
+                        jf 's "target/"'
+                    }
+                }
             }
         }
         stage ('Upload artifact') {
