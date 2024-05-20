@@ -85,7 +85,7 @@ pipeline {
                 expression { TYPE_OF_SCAN == 'Build'}
             }
             steps {
-                jf 'bs ${BUILD_NAME} ${BUILD_ID} --fail=${FAIL_BUILD} --vuln=${RETURN_ALL_VULNERABILITIES}'
+                jf 'bs --fail=${FAIL_BUILD} --vuln=${RETURN_ALL_VULNERABILITIES} ${BUILD_NAME} ${BUILD_ID}}'
             }
         }
         stage ('Promote build info'){
