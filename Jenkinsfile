@@ -58,9 +58,9 @@ pipeline {
             steps {
                 script {
                     if (params.WATCHES!=null && params.WATCHES!=''){
-                        jf 's "target/" --watches ${WATCHES}'
+                        jf 's ${WORKSPACE}/target/*.jar --watches ${WATCHES}'
                     } else {
-                        jf 's "target/"'
+                        jf 's ${WORKSPACE}/target/*.jar'
                     }
                 }
             }
