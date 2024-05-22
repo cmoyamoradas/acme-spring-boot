@@ -38,9 +38,11 @@ pipeline {
             steps {
                 script {
                     if (params.WATCHES!=null && params.WATCHES!=''){
-                        'JFROG_CLI_LOG_LEVEL=DEBUG' jf 'audit --mvn --watches ${WATCHES}'
+                        export 'JFROG_CLI_LOG_LEVEL=DEBUG'
+                        jf 'audit --mvn --watches ${WATCHES}'
                     } else {
-                        'JFROG_CLI_LOG_LEVEL=DEBUG' jf 'audit --mvn'
+                        export 'JFROG_CLI_LOG_LEVEL=DEBUG'
+                        jf 'audit --mvn'
                     }
                 }
             }
