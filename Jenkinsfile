@@ -8,6 +8,7 @@ pipeline {
         ARTIFACTORY_VIRTUAL_REPO = 'acme-maven-virtual'
         SERVER_ID = 'local'
         BUILD_NAME = 'Acme-Spring-Boot-Application'
+        JFROG_CLI_LOG_LEVEL = 'DEBUG'
     }
     tools {
         maven "maven-3.9.6"
@@ -38,10 +39,8 @@ pipeline {
             steps {
                 script {
                     if (params.WATCHES!=null && params.WATCHES!=''){
-                        export 'JFROG_CLI_LOG_LEVEL=DEBUG'
                         jf 'audit --mvn --watches ${WATCHES}'
                     } else {
-                        export 'JFROG_CLI_LOG_LEVEL=DEBUG'
                         jf 'audit --mvn'
                     }
                 }
