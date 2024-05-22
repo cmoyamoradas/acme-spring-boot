@@ -1,7 +1,8 @@
 pipeline {
     agent any
     environment {
-        JURL = 'http://artifactory.artifactory:8082'
+        //JURL = 'http://artifactory.artifactory:8082'
+        JURL = 'https://z0devmaster.jfrogdev.org'
         RT_URL = 'http://artifactory.artifactory:8082/artifactory'
         TOKEN = credentials('main.jfrog.local')
         ARTIFACTORY_LOCAL_DEV_REPO = 'acme-maven-dev-local'
@@ -18,8 +19,10 @@ pipeline {
     stages {
         stage ('Config JFrgo CLI') {
             steps {
-                jf 'c add ${SERVER_ID} --interactive=false --overwrite=true --access-token=${TOKEN} --url=${JURL}'
-                jf 'config use ${SERVER_ID}'
+                //jf 'c add ${SERVER_ID} --interactive=false --overwrite=true --access-token=${TOKEN} --url=${JURL}'
+                //jf 'config use ${SERVER_ID}'
+                jf 'c add test --interactive=false --overwrite=true --user=carlosmm --password=Password1! --url=${JURL}'
+                jf 'config use test'
             }
         }
         stage ('Ping to Artifactory') {
@@ -29,7 +32,7 @@ pipeline {
         }
         stage ('Config Maven'){
             steps {
-               jf 'mvnc --repo-resolve-releases=${ARTIFACTORY_VIRTUAL_REPO} --repo-resolve-snapshots=${ARTIFACTORY_VIRTUAL_REPO} --repo-deploy-releases=${ARTIFACTORY_VIRTUAL_REPO} --repo-deploy-snapshots=${ARTIFACTORY_VIRTUAL_REPO}'
+               //jf 'mvnc --repo-resolve-releases=${ARTIFACTORY_VIRTUAL_REPO} --repo-resolve-snapshots=${ARTIFACTORY_VIRTUAL_REPO} --repo-deploy-releases=${ARTIFACTORY_VIRTUAL_REPO} --repo-deploy-snapshots=${ARTIFACTORY_VIRTUAL_REPO}'
             }
         }
         stage ('Scan the project') {
@@ -66,6 +69,7 @@ pipeline {
                 }
             }
         }
+        /*
         stage ('Upload artifact') {
             steps {
                  jf 'mvn clean deploy -Dcheckstyle.skip -DskipTests --build-name=${BUILD_NAME} --build-number=${BUILD_ID}'
@@ -99,5 +103,6 @@ pipeline {
                 jf 'rt bpr --status=Development ${BUILD_NAME} ${BUILD_ID} ${ARTIFACTORY_LOCAL_DEV_REPO}'
             }
         }
+         */
     }
 }
