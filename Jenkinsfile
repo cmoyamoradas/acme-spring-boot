@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script {
                     if (params.WATCHES!=null && params.WATCHES!=''){
-                        jf 'audit --mvn --watches ${WATCHES}'
+                        jf 'audit --mvn --fail ${FAIL} --watches ${WATCHES}'
                     } else {
                         jf 'audit --mvn'
                     }
@@ -64,14 +64,13 @@ pipeline {
             steps {
                 script {
                     if (params.WATCHES!=null && params.WATCHES!=''){
-                        jf 's ${WORKSPACE}/target/*.jar --watches ${WATCHES}'
+                        jf 's ${WORKSPACE}/target/*.jar --fail ${FAIL} --watches ${WATCHES}'
                     } else {
                         jf 's ${WORKSPACE}/target/*.jar'
                     }
                 }
             }
         }
-        /*
         stage ('Upload artifact') {
             steps {
                  jf 'mvn clean deploy -Dcheckstyle.skip -DskipTests --build-name=${BUILD_NAME} --build-number=${BUILD_ID}'
@@ -96,15 +95,14 @@ pipeline {
                 echo "${BUILD_ID}"
                 echo "${FAIL_BUILD}"
                 echo "${RETURN_ALL_VULNERABILITIES}"
-                jf 'bs ${BUILD_NAME} ${BUILD_ID} --fail=${FAIL_BUILD} --vuln=${RETURN_ALL_VULNERABILITIES}'
+                jf 'bs ${BUILD_NAME} ${BUILD_ID} --fail=${FAIL} --vuln=${RETURN_ALL_VULNERABILITIES}'
             }
         }
-        stage ('Promote build info'){
-            steps{
+        stage ('Promote build info') {
+            steps {
                 //Promote the build
                 jf 'rt bpr --status=Development ${BUILD_NAME} ${BUILD_ID} ${ARTIFACTORY_LOCAL_DEV_REPO}'
             }
         }
-         */
     }
 }
