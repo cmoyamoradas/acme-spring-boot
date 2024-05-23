@@ -61,6 +61,8 @@ pipeline {
             }
             steps {
                 script {
+                    echo ${WORKSPACE}
+                    pwc
                     if (params.WATCHES!=null && params.WATCHES!=''){
                         jf 's ${WORKSPACE}/target/*.jar --fail ${FAIL} --watches ${WATCHES}'
                     } else {
