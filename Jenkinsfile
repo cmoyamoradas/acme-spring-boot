@@ -64,7 +64,7 @@ pipeline {
                 script {
                     sh 'ls -la target/'
                     if (params.WATCHES!=null && params.WATCHES!=''){
-                        jf 's ${WORKSPACE}/target/*.jar --fail ${FAIL} --watches ${WATCHES}'
+                        jf 's ${WORKSPACE}/target/*.jar --watches ${WATCHES}'
                     } else {
                         jf 's ${WORKSPACE}/target/*.jar'
                     }
