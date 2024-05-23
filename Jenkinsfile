@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        //JURL = 'http://artifactory.artifactory:8082'
-        JURL = 'https://z0devmaster.jfrogdev.org'
+        JURL = 'http://artifactory.artifactory:8082'
+        //JURL = 'https://z0devmaster.jfrogdev.org'
         RT_URL = 'http://artifactory.artifactory:8082/artifactory'
         TOKEN = credentials('main.jfrog.local')
         ARTIFACTORY_LOCAL_DEV_REPO = 'acme-maven-dev-local'
@@ -19,10 +19,10 @@ pipeline {
     stages {
         stage ('Config JFrgo CLI') {
             steps {
-                //jf 'c add ${SERVER_ID} --interactive=false --overwrite=true --access-token=${TOKEN} --url=${JURL}'
-                //jf 'config use ${SERVER_ID}'
-                jf 'c add test --interactive=false --overwrite=true --user=carlosmm --password=Password1! --url=${JURL}'
-                jf 'config use test'
+                jf 'c add ${SERVER_ID} --interactive=false --overwrite=true --access-token=${TOKEN} --url=${JURL}'
+                jf 'config use ${SERVER_ID}'
+                //jf 'c add test --interactive=false --overwrite=true --user=carlosmm --password=Password1! --url=${JURL}'
+                //jf 'config use test'
             }
         }
         stage ('Ping to Artifactory') {
