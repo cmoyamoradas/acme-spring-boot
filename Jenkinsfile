@@ -60,9 +60,9 @@ pipeline {
                 expression { TYPE_OF_SCAN == 'On-demand'}
             }
             steps {
+                echo "${WORKSPACE}"
                 script {
-                    echo '${WORKSPACE}'
-                    pwc
+                    sh 'pwc'
                     if (params.WATCHES!=null && params.WATCHES!=''){
                         jf 's ${WORKSPACE}/target/*.jar --fail ${FAIL} --watches ${WATCHES}'
                     } else {
