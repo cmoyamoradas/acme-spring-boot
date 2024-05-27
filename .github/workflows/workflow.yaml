@@ -16,7 +16,7 @@ jobs:
           JF_ENV_1: ${{ secrets.JF_SECRET_ENV_1 }}
       - name: Ping Artifactory
         run: |
-          jf rt ping --url https://${{ env.RT_DOCKER_REGISTRY}}
+          jf c show
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Config Maven
