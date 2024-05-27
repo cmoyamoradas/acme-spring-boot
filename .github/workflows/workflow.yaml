@@ -27,7 +27,7 @@ jobs:
           jf mvn clean package -Dcheckstyle.skip -DskipTests
       - name: Build the tagged Docker image
         run: |
-          docker build . --file Dockerfile --build-arg='JAR_FILE=target/*.jar' --tag ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION}}
+          docker build . --file Dockerfile --build-arg='JAR_FILE=target/*.jar' --tag ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION}}
       - name: Run JFrog CLI
         run: |
           # Push image to Artifactory
