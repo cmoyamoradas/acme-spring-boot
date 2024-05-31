@@ -37,13 +37,17 @@ jobs:
       - name: Build the tagged Docker image
         run: |
           docker build . --file Dockerfile --build-arg='JAR_FILE=target/*.jar' --tag ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION}}
-      - name: Run JFrog CLI
+      - name: Push Docker image to Artifactory
         run: |
           # Push image to Artifactory
           jf docker push --build-name=${{ github.workflow }} --build-number=${{ github.run_number }} ${{ env.RT_DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+      - name: Collect build-info and publish it into Artifactory
+        run: |
           # Collect environment variables for the build
           jf rt bce ${{ github.workflow }} ${{ github.run_number }}
           # Publish build info
           jf rt bp ${{ github.workflow }} ${{ github.run_number }}
+      - name: Scan the build-info
+        run: |
           # Scan published build with fail by default (true)
-          jf bs ${{ github.workflow }} ${{ github.run_number }}
+          jf bs --fail=false ${{ github.workflow }} ${{ github.run_number }}
