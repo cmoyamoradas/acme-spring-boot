@@ -1,5 +1,10 @@
 name: acme-build-scan-publish
 on: push
+permissions:
+  actions: read # for detecting the Github Actions environment.
+  id-token: write # for creating OIDC tokens for signing.
+  packages: write # for uploading attestations.
+  contents: read
 env:
   DOCKER_REPO: 'carlosmm-docker-virtual'
   MAVEN_REPO: 'carlosmm-maven-virtual'
