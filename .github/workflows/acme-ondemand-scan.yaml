@@ -1,4 +1,4 @@
-name: acme-audit-scan
+name: acme-ondemand-scan
 on: push
 permissions:
   actions: read # for detecting the Github Actions environment.
