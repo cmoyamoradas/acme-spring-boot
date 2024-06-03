@@ -155,4 +155,3 @@ jobs:
         # Insert to oidc-provider-name the 'Provider Name' defined in the OIDC integration configured in the JPD
         with:
           oidc-provider-name: carlosmm-github-integration
-          oidc-audience: carlosmm-github
