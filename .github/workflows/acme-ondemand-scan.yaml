@@ -1,0 +1,60 @@
+name: acme-audit-scan
+on: push
+permissions:
+  actions: read # for detecting the Github Actions environment.
+  id-token: write # for creating OIDC tokens for signing.
+  packages: write # for uploading attestations.
+  contents: read
+env:
+  DOCKER_REPO: 'carlosmm-docker-virtual'
+  MAVEN_REPO: 'carlosmm-maven-virtual'
+  IMAGE_NAME: 'acme-app'
+  IMAGE_VERSION: '1.0'
+  RT_DOCKER_REGISTRY: 'soleng.jfrog.io'
+  WATCHES: 'carlosmm-BuildWatch'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v4
+        env:
+          #JF_ENV_1: ${{ secrets.JF_SECRET_ENV_1 }}
+          JF_URL: https://${{ vars.JF_URL }}/
+        with:
+          oidc-provider-name: carlosmm-github-integration
+          oidc-audience: carlosmm-github
+      - name: Ping Artifactory
+        run: |
+          jf rt ping
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Config Maven
+        run: |
+          jf mvnc --repo-resolve-releases=${{ env.MAVEN_REPO }} --repo-resolve-snapshots=${{ env.MAVEN_REPO }} --repo-deploy-releases=${{ env.MAVEN_REPO }} --repo-deploy-snapshots=${{ env.MAVEN_REPO }}
+      - name: Package Application
+        run: |
+          jf mvn clean package -Dcheckstyle.skip -DskipTests
+      - name: On-demand Scan - Maven package
+        run: |
+          jf s target/*.jar --watches=${{ env.WATCHES }}
+      - name: Build the tagged Docker image
+        run: |
+          docker build . --file Dockerfile --build-arg='JAR_FILE=target/*.jar' --tag ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION}}
+      - name: On-demand Scan - Docker image
+        run: |
+          jf docker scan ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION}} --watches=${{ env.WATCHES }}
+      - name: Push Docker image to Artifactory
+        run: |
+          # Push image to Artifactory
+          jf docker push --build-name=${{ github.workflow }} --build-number=${{ github.run_number }} ${{ env.RT_DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+      - name: Collect build-info and publish it into Artifactory
+        run: |
+          # Collect environment variables for the build
+          jf rt bce ${{ github.workflow }} ${{ github.run_number }}
+          # Publish build info
+          jf rt bp ${{ github.workflow }} ${{ github.run_number }}
+      - name: Scan the build-info
+        run: |
+          # Scan published build with fail by default (true)
+          jf bs --fail=false ${{ github.workflow }} ${{ github.run_number }}
