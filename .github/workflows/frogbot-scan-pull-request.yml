@@ -1,4 +1,4 @@
-name: "Frogbot Scan Pull Request"
+name: "Frogbo-Scan-Pull-Request"
 on:
   pull_request_target:
     types: [opened, synchronize]
@@ -6,7 +6,7 @@ permissions:
   pull-requests: write
   contents: read
   # [Mandatory If using OIDC authentication protocol instead of JF_ACCESS_TOKEN]
-    id-token: write
+  id-token: write
 jobs:
   scan-pull-request:
     runs-on: ubuntu-latest
