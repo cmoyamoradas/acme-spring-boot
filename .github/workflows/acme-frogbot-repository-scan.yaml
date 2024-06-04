@@ -24,7 +24,7 @@ jobs:
           JF_CLI_LOG_LEVEL: "DEBUG"
           # [Mandatory]
           # JFrog platform URL
-          JF_URL: ${{ secrets.JF_URL }}
+          JF_URL: https://${{ secrets.JF_URL }}/
           # [Mandatory if JF_USER and JF_PASSWORD are not provided]
           # JFrog access token with 'read' permissions on Xray service
           # JF_USER: ${{ secrets.JF_USER }}
