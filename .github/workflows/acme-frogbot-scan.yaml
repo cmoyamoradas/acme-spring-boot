@@ -5,16 +5,20 @@ on:
 permissions:
   pull-requests: write
   contents: read
-  # [Mandatory If using OIDC authentication protocol instead of JF_ACCESS_TOKEN]
-  actions: read # for detecting the Github Actions environment.
-  id-token: write # for creating OIDC tokens for signing.
-  packages: write # for uploading attestations.
 jobs:
   scan-pull-request:
     runs-on: ubuntu-latest
-    # A pull request needs to be approved before Frogbot scans it. Any GitHub user who is associated with the
+    # A pull request needs to be approved, before Frogbot scans it. Any GitHub user who is associated with the
     # "frogbot" GitHub environment can approve the pull request to be scanned.
     environment: frogbot
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      # Install prerequisites
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
     steps:
       - uses: jfrog/frogbot@v2
         env:
@@ -109,7 +113,7 @@ jobs:
 
           # [Optional, default: "TRUE"]
           # Fails the Frogbot task if any security issue is found.
-          # JF_FAIL: "FALSE"
+          JF_FAIL: "FALSE"
 
           # [Optional]
           # Frogbot will download the project dependencies if they're not cached locally. To download the
