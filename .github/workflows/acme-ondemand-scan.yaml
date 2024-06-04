@@ -20,7 +20,7 @@ jobs:
         uses: jfrog/setup-jfrog-cli@v4
         env:
           #JF_ENV_1: ${{ secrets.JF_SECRET_ENV_1 }}
-          JF_URL: https://${{ vars.JF_URL }}/
+          JF_URL: https://${{ secrets.JF_URL }}/
         with:
           oidc-provider-name: carlosmm-github-integration
           oidc-audience: carlosmm-github
