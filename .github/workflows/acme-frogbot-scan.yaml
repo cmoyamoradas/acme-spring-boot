@@ -12,13 +12,6 @@ jobs:
     # "frogbot" GitHub environment can approve the pull request to be scanned.
     environment: frogbot
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      # Install prerequisites
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
       - uses: jfrog/frogbot@v2
         env:
           # [Mandatory]
@@ -112,7 +105,7 @@ jobs:
 
           # [Optional, default: "TRUE"]
           # Fails the Frogbot task if any security issue is found.
-          JF_FAIL: "FALSE"
+          # JF_FAIL: "FALSE"
 
           # [Optional]
           # Frogbot will download the project dependencies if they're not cached locally. To download the
