@@ -6,9 +6,9 @@ permissions:
   pull-requests: write
   contents: read
   # [Mandatory If using OIDC authentication protocol instead of JF_ACCESS_TOKEN]
-  actions: read # for detecting the Github Actions environment.
-  id-token: write # for creating OIDC tokens for signing.
-  packages: write # for uploading attestations.
+  #actions: read # for detecting the Github Actions environment.
+  #id-token: write # for creating OIDC tokens for signing.
+  #packages: write # for uploading attestations.
 jobs:
   scan-pull-request:
     runs-on: ubuntu-latest
@@ -93,7 +93,7 @@ jobs:
 
           # [Optional]
           # Xray Watches. Learn more about them here: https://www.jfrog.com/confluence/display/JFROG/Configuring+Xray+Watches
-          JF_WATCHES: carlosmm-BuildWatch
+          # JF_WATCHES: carlosmm-BuildWatch
 
           # [Optional]
           # JFrog project. Learn more about it here: https://www.jfrog.com/confluence/display/JFROG/Projects
@@ -120,7 +120,7 @@ jobs:
           # [Optional, Default: "FALSE"]
           # If TRUE, Frogbot creates a single pull request with all the fixes.
           # If false, Frogbot creates a separate pull request for each fix.
-          JF_GIT_AGGREGATE_FIXES: "TRUE"
+          # JF_GIT_AGGREGATE_FIXES: "TRUE"
 
           # [Optional, Default: "FALSE"]
           # Handle vulnerabilities with fix versions only
