@@ -65,7 +65,7 @@ jobs:
 
           # [Optional]
           # Xray Watches. Learn more about them here: https://www.jfrog.com/confluence/display/JFROG/Configuring+Xray+Watches
-          # JF_WATCHES: <watch-1>,<watch-2>...<watch-n>
+          JF_WATCHES: carlosmm-BuildWatch
 
           # [Optional]
           # JFrog project. Learn more about it here: https://www.jfrog.com/confluence/display/JFROG/Projects
@@ -100,7 +100,7 @@ jobs:
           # [Optional, Default: "FALSE"]
           # If TRUE, Frogbot creates a single pull request with all the fixes.
           # If FALSE, Frogbot creates a separate pull request for each fix.
-          JF_GIT_AGGREGATE_FIXES: "FALSE"
+          JF_GIT_AGGREGATE_FIXES: "TRUE"
 
           # [Optional, Default: "FALSE"]
           # Handle vulnerabilities with fix versions only
