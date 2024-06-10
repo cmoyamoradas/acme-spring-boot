@@ -1,0 +1,29 @@
+name: acme-oidc
+on: workflow_dispatch
+
+permissions:
+  actions: read # for detecting the Github Actions environment.
+  id-token: write # for creating OIDC tokens for signing.
+  packages: write # for uploading attestations.
+  contents: read
+jobs:
+  ga-jfrog-get-token:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Use the specific setup-cli branch
+      - name: Setup JFrog CLI
+        uses: jfrog/setup-jfrog-cli@v4
+        id: setup-cli
+        env:
+          JF_URL: https://${{ vars.JF_URL }}/
+        with:
+          oidc-provider-name: ${{ vars.OIDC_PROVIDER_NAME }}
+
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Run a jfrog command
+        # Run a jfrog command to trigger the token exchnage
+        run: |
+          jf rt curl /api/repositories
