@@ -33,7 +33,7 @@ jobs:
           jf mvnc --repo-resolve-releases=${{ env.MAVEN_REPO }} --repo-resolve-snapshots=${{ env.MAVEN_REPO }} --repo-deploy-releases=${{ env.MAVEN_REPO }} --repo-deploy-snapshots=${{ env.MAVEN_REPO }}
       - name: Package Application
         run: |
-          jf mvn clean package -Dcheckstyle.skip -DskipTests
+          jf mvn clean deploy -Dcheckstyle.skip -DskipTests --build-name=${{ github.workflow }} --build-number=${{ github.run_number }}
       - name: Build the tagged Docker image
         run: |
           docker build . --file Dockerfile --build-arg='JAR_FILE=target/*.jar' --tag ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION}}
