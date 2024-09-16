@@ -14,12 +14,11 @@ jobs:
       # Use the specific setup-cli branch
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
-        id: setup-cli
         env:
-          # JF_URL: https://${{ vars.JF_URL }}/
-          JF_URL: https://webhook.site/738e1907-ee00-41d6-af90-928e61d45df7
+          JF_URL: https://soleng.jfrog.io
         with:
-          oidc-provider-name: ${{ vars.OIDC_PROVIDER_NAME }}
+          oidc-provider-name: carlosmm-github-integration
+          oidc-audience: carlosmm-github
 
       - name: Checkout the repository
         uses: actions/checkout@v4
