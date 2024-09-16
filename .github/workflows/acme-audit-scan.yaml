@@ -10,7 +10,7 @@ env:
   MAVEN_REPO: 'carlosmm-maven-virtual'
   IMAGE_NAME: 'acme-app'
   RT_DOCKER_REGISTRY: 'soleng.jfrog.io'
-  WATCHES: 'carlosmm-BuildWatch'
+  WATCHES: 'carlosmm-RepoWatch'
 jobs:
   build:
     runs-on: ubuntu-latest
