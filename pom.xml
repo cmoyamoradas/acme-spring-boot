@@ -6,11 +6,11 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>acme-spring-boot</artifactId>
-	<version>1.0.0</version>
+	<version>5.0.0</version>
 	<name>acme-spring-boot</name>
 	<description>Demo project for Spring Boot - cmm</description>
 
@@ -39,11 +39,13 @@
 		</dependency>
 		<!-- end::tests[] -->
 
-		<!--dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
 			<version>2.7.12</version>
-		</dependency-->
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
