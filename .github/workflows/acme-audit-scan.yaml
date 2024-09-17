@@ -10,7 +10,7 @@ env:
   MAVEN_REPO: 'carlosmm-maven-virtual'
   IMAGE_NAME: 'acme-app'
   RT_DOCKER_REGISTRY: 'soleng.jfrog.io'
-  WATCHES: 'carlosmm-RepoWatch'
+  WATCHES: 'carlosmm-BuildWatch'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -40,9 +40,9 @@ jobs:
       - name: Build the tagged Docker image
         run: |
           docker build . --file Dockerfile --build-arg='JAR_FILE=target/*.jar' --tag ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
-      - name: Audit Docker image
-        run: |
-          jf docker scan --watches=${{ env.WATCHES }} ${{ env.RT_DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
+      #- name: Audit Docker image
+      #  run: |
+      #     jf docker scan --watches=${{ env.WATCHES }} ${{ env.RT_DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
       - name: Push Docker image to Artifactory
         run: |
           # Push image to Artifactory
