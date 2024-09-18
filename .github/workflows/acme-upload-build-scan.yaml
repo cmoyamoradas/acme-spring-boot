@@ -9,7 +9,7 @@ env:
   DOCKER_REPO: 'carlosmm-docker-virtual'
   MAVEN_REPO: 'carlosmm-maven-virtual'
   IMAGE_NAME: 'acme-app'
-  IMAGE_VERSION: '1.0'
+  #IMAGE_VERSION: '1.0'
   RT_DOCKER_REGISTRY: 'soleng.jfrog.io'
 jobs:
   build:
@@ -36,11 +36,11 @@ jobs:
           jf mvn clean deploy -Dcheckstyle.skip -DskipTests --build-name=${{ github.workflow }} --build-number=${{ github.run_number }}
       - name: Build the tagged Docker image
         run: |
-          docker build . --file Dockerfile --build-arg='JAR_FILE=target/*.jar' --tag ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION}}
+          docker build . --file Dockerfile --build-arg='JAR_FILE=target/*.jar' --tag ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
       - name: Push Docker image to Artifactory
         run: |
           # Push image to Artifactory
-          jf docker push --build-name=${{ github.workflow }} --build-number=${{ github.run_number }} ${{ env.RT_DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION }}
+          jf docker push --build-name=${{ github.workflow }} --build-number=${{ github.run_number }} ${{ env.RT_DOCKER_REGISTRY }}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
       - name: Collect build-info and publish it into Artifactory
         run: |
           # Collect environment variables for the build
