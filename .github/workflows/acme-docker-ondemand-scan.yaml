@@ -1,4 +1,4 @@
-name: acme-ondemand-scan
+name: acme-docker-ondemand-scan
 on: workflow_dispatch
 permissions:
   actions: read # for detecting the Github Actions environment.
@@ -35,15 +35,12 @@ jobs:
       - name: Package Application
         run: |
           jf mvn clean package -Dcheckstyle.skip -DskipTests
-      - name: On-demand Scan - Maven package
-        run: |
-          jf s target/*.jar --watches=${{ env.WATCHES }}
       - name: Build the tagged Docker image
         run: |
           docker build . --file Dockerfile --build-arg='JAR_FILE=target/*.jar' --tag ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }}
-      #- name: On-demand Scan - Docker image
-      #  run: |
-      #    jf docker scan ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }} --watches=${{ env.WATCHES }}
+      - name: On-demand Scan - Docker image
+        run: |
+          jf docker scan ${{ env.RT_DOCKER_REGISTRY}}/${{ env.DOCKER_REPO }}/${{ env.IMAGE_NAME }}:${{ github.run_number }} --watches=${{ env.WATCHES }}
       - name: Push Docker image to Artifactory
         run: |
           # Push image to Artifactory

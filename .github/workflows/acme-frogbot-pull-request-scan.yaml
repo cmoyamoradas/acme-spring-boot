@@ -1,4 +1,4 @@
-name: "acme-frogbot-scan"
+name: "acme-frogbot-pull-request-scan"
 on:
   pull_request_target:
     types: [opened, synchronize]
