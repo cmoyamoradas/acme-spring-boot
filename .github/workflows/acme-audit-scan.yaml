@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Audit Application
         run: |
-          JFROG_CLI_LOG_LEVEL=DEBUG jf audit --mvn --sca --watches ${{ env.WATCHES }}
+          JFROG_CLI_LOG_LEVEL=DEBUG jf audit --mvn --sca --fail true --watches ${{ env.WATCHES }}
       - name: Config Maven
         run: |
           jf mvnc --repo-resolve-releases=${{ env.MAVEN_REPO }} --repo-resolve-snapshots=${{ env.MAVEN_REPO }} --repo-deploy-releases=${{ env.MAVEN_REPO }} --repo-deploy-snapshots=${{ env.MAVEN_REPO }}
