@@ -50,4 +50,4 @@ jobs:
       - name: Scan the build-info
         run: |
           # Scan published build with fail by default (true)
-          jf bs ${{ github.workflow }} ${{ github.run_number }} --watches=carlosmm-BuildWatch
+          jf bs ${{ github.workflow }} ${{ github.run_number }} --watches=carlosmm-BuildWatch --vuln
