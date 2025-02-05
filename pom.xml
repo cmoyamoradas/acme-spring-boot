@@ -45,6 +45,11 @@
 			<!--version>2.7.12</version-->
 		</dependency>
 
+		<dependency>
+			<groupId>org.acme</groupId>
+			<artifactId>acme-fligth</artifactId>
+			<version>1.0</version>
+		</dependency>
 
 	</dependencies>
 
