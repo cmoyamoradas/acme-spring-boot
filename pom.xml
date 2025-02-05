@@ -46,10 +46,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.acme</groupId>
-			<artifactId>acme-fligth</artifactId>
-			<version>1.0</version>
-		</dependency>
+    <groupId>org.acme</groupId>
+    <artifactId>acme-flight</artifactId>
+    <version>1.0</version>
+</dependency>
 
 	</dependencies>
 
